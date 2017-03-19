@@ -137,6 +137,7 @@ h1 {
   font-size: 5em;
   text-align: center;
   text-shadow: 0 0 3px #6cf;
+  text-transform: uppercase;
 }
 h1:first-line {
   font-size: 200%;
