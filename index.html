@@ -23,8 +23,15 @@
       g.vX += time_scale * g.aX;
       g.vY += time_scale * g.aY;
 
-      g.x = (g.x + time_scale * g.vX) //% window.innerWidth;
-      g.y = (g.y + time_scale * g.vY) //%  window.innerHeight;
+      g.x = (g.x + time_scale * g.vX);
+      g.y = (g.y + time_scale * g.vY);
+
+      /* Fake infinity */
+      g.x = (g.x < -g.e.width) ? window.innerWidth - g.x + g.e.width: g.x;
+      g.y = (g.y < -g.e.height) ? window.innerHeight - g.y + g.e.height : g.y; 
+
+      g.x = (g.x > window.innerWidth + g.e.width ) ? -g.e.width : g.x;
+      g.y = (g.y > window.innerHeight + g.e.height ) ? -g.e.height : g.y; 
 
       g.e.style.transform = `translate(${g.x - g.e.width / 2}px, ${g.y - g.e.height / 2}px)`;
     }
@@ -37,7 +44,7 @@
           e: g,
           vX: 0, vY: 0,
           aX: 0, aY: 0,
-          m: 40,
+          m: Math.random() * 40,
           x: (Math.random() * window.innerWidth),
           y: (Math.random() * window.innerHeight)
         };
@@ -49,7 +56,7 @@
         vX: 0, vY: 0,
         aX: 0, aY: 0,
 
-        m: 120,
+        m: 150,
         static: true,
         x: window.innerWidth / 2,
         y: window.innerHeight / 2
