@@ -11,19 +11,35 @@ body {
 
   background: #000;
   overflow:hidden;
+  width: 100%;
 }
 
 .god {
-  width: 100%;
-  opacity: 0.5;
-  position: absolute;
-  right: 50%;
-  top: 50%;
+  width: 100vh;
+  height: auto;
+  opacity: 0.3;
+  position: fixed;
+  bottom: -50vh;
 }
 
 .dawg {
   animation: flippy 2s linear infinite;
+
+  position: relative;
+  top: calc(50vh - 257px);
 }
+
+.garbage {
+  width: 100px;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  transform-origin: -50% -50% 0;
+  z-index: 1;
+  
+  /*animation: flippy 5s linear infinite;*/
+}
+
 
 @keyframes flippy {
   0% {
