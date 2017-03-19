@@ -24,7 +24,6 @@ body {
 
 .dawg {
   animation: flippy 2s linear infinite;
-
   position: relative;
   top: calc(50vh - 257px);
 }
@@ -36,7 +35,7 @@ body {
   left: 0px;
   transform-origin: -50% -50% 0;
   z-index: 1;
-  
+
   /*animation: flippy 5s linear infinite;*/
 }
 

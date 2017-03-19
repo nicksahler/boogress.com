@@ -4,55 +4,63 @@
   <title>Mel O's Site</title>
   <link rel="stylesheet" type="text/css" href="./style.css">
 
-  <script type="text/javascript">
-    var mX = 0, mY = 0;
+  <script type="text/javascript">      
+    let time_scale = 1/5000;
+    let space_scale = 0.05;
 
-    var w = 250;
-    var h = 250;
+    function update(g, h) {
+      if (g.static) return;
+
+      let Dx = (h.x - g.x) * space_scale;
+      let Dy = (h.y - g.y) * space_scale;
+      let d = Math.max(Math.hypot(Dx, Dy), 5) * space_scale;
+      let F = (g.m * h.m) / (d * d);
+
+      
+      g.aX = F * (Dx / d);
+      g.aY = F * (Dy / d);
+
+      g.vX += time_scale * g.aX;
+      g.vY += time_scale * g.aY;
+
+      g.x = (g.x + time_scale * g.vX) //% window.innerWidth;
+      g.y = (g.y + time_scale * g.vY) //%  window.innerHeight;
+
+      g.e.style.transform = `translate(${g.x - g.e.width / 2}px, ${g.y - g.e.height / 2}px)`;
+    }
 
     window.onload = ()=>{
-      let dawg = document.querySelector('.dawg');
-      let garbage = Array.prototype.slice.call(
+      let trash_bin = Array.prototype.slice.call(
         document.querySelectorAll('.garbage')
       ).map((g)=>{
         return {
           e: g,
           vX: 0, vY: 0,
           aX: 0, aY: 0,
-
+          m: 40,
           x: (Math.random() * window.innerWidth),
           y: (Math.random() * window.innerHeight)
         };
       });
 
-      console.log(garbage);
+      /* Add big dawg to trash */
+      trash_bin.push({
+        e: document.querySelector('.dawg'),
+        vX: 0, vY: 0,
+        aX: 0, aY: 0,
 
-      // document.onmousemove = function(event) {
-      //   mX = event.clientX;
-      //   mY = event.clientY;
-      // }
-      
-      let time_scale = 1/1000;
-      let space_scale = 0.001;
+        m: 120,
+        static: true,
+        x: window.innerWidth / 2,
+        y: window.innerHeight / 2
+      });
 
       setInterval(function() {
+        trash_bin.forEach((g, i)=>{
+          trash_bin.forEach((h, j)=>{
 
-        garbage.forEach((g)=>{
-          let Dx = ((window.innerWidth / 2) - g.x) * .05;
-          let Dy = ((window.innerHeight / 2) - g.y) * .05;
-          let d = Math.max(Math.hypot(Dx, Dy), 5) * .05;
-          let F = (6.67408e-11 * 5e13 * 2) / (d * d);
-
-          g.aX = F * (Dx / d);
-          g.aY = F * (Dy / d);
-
-
-          g.vX += time_scale * g.aX;
-          g.vY += time_scale * g.aY;
-          g.x = (g.x + time_scale * g.vX) //% window.innerWidth;
-          g.y = (g.y + time_scale * g.vY) //%  window.innerHeight;
-
-          g.e.style.transform = `translate(${g.x - g.e.width / 2}px, ${g.y - g.e.height / 2}px)`;
+            if(i !== j) update(g, h);
+          });
         });
         
       }, 16.66);
