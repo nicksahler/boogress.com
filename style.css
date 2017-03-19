@@ -1,8 +1,6 @@
 body {
   font-family: Arial;
 
-  background: gradient(#000, #FFF);
-
   -webkit-animation: DawgSpace 0.1s ease infinite;
   -moz-animation: DawgSpace 0.1s ease infinite;
   animation: DawgSpace 0.1s ease infinite;
@@ -10,8 +8,18 @@ body {
   background: #2C3E50; /* fallback for old browsers */
   background: -webkit-linear-gradient(to left, #2C3E50 , #FD746C); /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to left, #2C3E50 , #FD746C); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+  background: #000;
+  overflow:hidden;
 }
 
+.god {
+  width: 100%;
+  opacity: 0.5;
+  position: absolute;
+  right: 50%;
+  top: 50%;
+}
 
 .dawg {
   animation: flippy 2s linear infinite;
@@ -48,8 +56,6 @@ body {
 }
 
 
-@import url(http://fonts.googleapis.com/css?family=Orbitron:700);
-
 /* Stars 
 ------------------------------------- */
 
@@ -61,7 +67,7 @@ body {
   left: 0;
   right: 0;
 
-    text-align: center;
+  text-align: center;
 
 }
 
@@ -116,29 +122,4 @@ body {
     opacity: 0;
     transform: scale(3.5);
   }
-}
-
-/* Demo syles 
-------------------------------------- */
-
-body {
-  background: #000;
-  font-family: 'Orbitron', sans-serif;
-}
-
-h1 {
-  position: absolute;
-  z-index: 1;
-  top: 50%;
-  left: 50%;
-  margin: -1.5em -2.5em;
-  width: 5em;
-  color: #011;
-  font-size: 5em;
-  text-align: center;
-  text-shadow: 0 0 3px #6cf;
-  text-transform: uppercase;
-}
-h1:first-line {
-  font-size: 200%;
 }
