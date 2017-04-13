@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mel O's Site</title>
+  <link rel="stylesheet" type="text/css" href="./style.css">
+
+  <script type="text/javascript">      
+    let time_scale = 1/5000;
+    let space_scale = 0.05;
+
+    function update(g, h) {
+      if (g.static) return;
+
+      let Dx = (h.x - g.x) * space_scale;
+      let Dy = (h.y - g.y) * space_scale;
+      let d = Math.max(Math.hypot(Dx, Dy), 5) * space_scale;
+      let F = (g.m * h.m) / (d * d);
+
+      
+      g.aX = F * (Dx / d);
+      g.aY = F * (Dy / d);
+
+      g.vX += time_scale * g.aX;
+      g.vY += time_scale * g.aY;
+
+      g.x = (g.x + time_scale * g.vX);
+      g.y = (g.y + time_scale * g.vY);
+
+      /* Fake infinity */
+      g.x = (g.x < -g.e.width) ? window.innerWidth - g.x + g.e.width: g.x;
+      g.y = (g.y < -g.e.height) ? window.innerHeight - g.y + g.e.height : g.y; 
+
+      g.x = (g.x > window.innerWidth + g.e.width ) ? -g.e.width : g.x;
+      g.y = (g.y > window.innerHeight + g.e.height ) ? -g.e.height : g.y; 
+
+      g.e.style.transform = `translate(${g.x - g.e.width / 2}px, ${g.y - g.e.height / 2}px)`;
+    }
+
+    window.onload = ()=>{
+      let trash_bin = Array.prototype.slice.call(
+        document.querySelectorAll('.garbage')
+      ).map((g)=>{
+        return {
+          e: g,
+          vX: 0, vY: 0,
+          aX: 0, aY: 0,
+          m: Math.random() * 40,
+          x: (Math.random() * window.innerWidth),
+          y: (Math.random() * window.innerHeight)
+        };
+      });
+
+      /* Add big dawg to trash */
+      trash_bin.push({
+        e: document.querySelector('.dawg'),
+        vX: 0, vY: 0,
+        aX: 0, aY: 0,
+
+        m: 150,
+        static: true,
+        x: window.innerWidth / 2,
+        y: window.innerHeight / 2
+      });
+
+      setInterval(function() {
+        trash_bin.forEach((g, i)=>{
+          trash_bin.forEach((h, j)=>{
+
+            if(i !== j) update(g, h);
+          });
+        });
+        
+      }, 16.66);
+    };
+  </script>
+</head>
+<body>
+<img src="dawg.png" class="god"/>
+<iframe width="0" height="0" src="https://www.youtube.com/embed/KF32DRg9opA?ecver=1&autoplay=1" frameborder="0" allowfullscreen></iframe>
+<div id="space">
+  <div class="stars"></div>
+  <div class="stars"></div>
+  <div class="stars"></div>
+  <div class="stars"></div>
+  <div class="stars"></div>
+
+  <img class="garbage" src="garbage_1.png"/>
+  <img class="garbage" src="garbage_2.png"/>
+  <img class="garbage" src="garbage_3.png"/>
+  <img class="garbage" src="garbage_4.png"/>
+  
+  <img class="garbage" src="garbage_1.png"/>
+  <img class="garbage" src="garbage_1.png"/>
+  <img class="garbage" src="garbage_2.png"/>
+  <img class="garbage" src="garbage_2.png"/>
+  <img class="garbage" src="garbage_4.png"/>
+
+  <img class="dawg" src="./dawg.png"/> 
+</div>
+
+</body>
+</html>
