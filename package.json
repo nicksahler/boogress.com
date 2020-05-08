@@ -1,0 +1,22 @@
+{
+  "name": "boogress.com",
+  "version": "1.0.0",
+  "description": "Boogress' site",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nicksahler/boogress.com.git"
+  },
+  "author": "Nick Sahler",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nicksahler/boogress.com/issues"
+  },
+  "homepage": "https://github.com/nicksahler/boogress.com#readme",
+  "dependencies": {
+    "sharp": "^0.25.2"
+  }
+}
